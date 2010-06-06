@@ -12,4 +12,5 @@ public interface IDownloader {
 	public String executeStdIn(String exec) throws CommunicationException;
 	public boolean supportsDeletion();
 	public boolean delete(String destination) throws CommunicationException;
+	public DownloadConfiguration getConfigurationObject();
 }

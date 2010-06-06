@@ -45,8 +45,7 @@ public class NetworkDownloader implements IDownloader {
 
 	@Override
 	public boolean setup(DownloadConfiguration config) {
-		if(config.getArgs().length != 1) return false;
-		ip = config.getArgs()[0];
+		ip = config.getValueFor("ip");
 		return true;
 	}
 
@@ -64,5 +63,9 @@ public class NetworkDownloader implements IDownloader {
 	public void disconnect() throws CommunicationException {
 		ssh.close();
 	}
-
+	
+	@Override
+	public DownloadConfiguration getConfigurationObject() {
+		return new NetworkConfiguration();
+	}
 }
