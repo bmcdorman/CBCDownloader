@@ -1,5 +1,8 @@
 //To compile:
-//javac -cp .:../jsch-0.1.42.jar -d ../bin Download.java
+//  javac -cp .:../jsch-0.1.42.jar:../RXTXcomm.jar -d ../bin Download.java
+//To run:
+//  cd ../bin
+//  java -cp .:../jsch-0.1.42.jar:../RXTXcomm.jar Download
 
 import java.io.File;
 import java.util.Arrays;
