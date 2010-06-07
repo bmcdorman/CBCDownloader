@@ -1,0 +1,21 @@
+IMPORTANT: If you do not care about USB downloads (via the USB cable, not a
+flashdrive), you can safely skip the following directions
+
+------------
+
+CBCDownloader requires rxtx for USB downloads. Unfortunately, rxtx is not 100%
+Java, nor is there, or will ever be, a 100% Java implementation for serial
+communication. Fortunately, installation is somewhat painless.
+
+On Ubuntu (and probably Debian), it is a simple apt command:
+    $ sudo apt-get install librxtx-java
+
+On Mac OS X and M$ Windoz, it should be as simple as CDing into this directory
+and running:
+	$ javaws gnu.io.SafeCommDriver.jnlp
+...although that is untested...
+
+If that fails, download the latest stable version from here:
+    http://rxtx.qbang.org/wiki/index.php/Download
+and follow the INSTALL file that comes inside of the zip included, skipping the
+part where you copy the '.jar' file. That is included with CBCDownloader.

@@ -1,0 +1,22 @@
+<jnlp href="gnu.io.SafeCommDriver.jnlp" 
+	codebase="http://show.docjava.com:80/book/cgij/code/jnlp/">
+  <information>
+    <title>gnu.io.SafeCommDriver</title>
+    <vendor>DocJava, Inc.</vendor>
+    <homepage href="http://www.docjava.com"/>
+	<icon href="http://show.docjava.com:80/consulti/docjava.jpe"/>
+    <offline-allowed />
+  </information>
+  
+  <security>
+    <all-permissions />
+  </security>
+  
+  <resources>
+    <j2se version="1.5+"/>
+    <jar href="gnu.io.SafeCommDriver.jar" />
+  </resources>
+ 
+  <application-desc main-class="gnu.io.SafeCommDriver" />
+</jnlp>
+
