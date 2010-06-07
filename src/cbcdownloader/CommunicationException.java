@@ -11,4 +11,3 @@ public class CommunicationException extends Exception {
 		super(message);
 	}
 }
- 

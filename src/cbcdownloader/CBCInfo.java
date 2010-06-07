@@ -9,7 +9,7 @@ public class CBCInfo {
 	}
 	
 	public String[] getProgramList() throws CommunicationException {
-		System.out.println("Fetching program list...");
+		if(!downloader.supportsExecution) { return null; }
 		String stdout = downloader.executeStdOut("ls -1 " + PROJECT_DIRECTORY);
 		return stdout.split("\n");
 	}

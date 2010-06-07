@@ -43,13 +43,7 @@ public class NetworkDownloader implements IDownloader {
 	}
 
 	@Override
-	public boolean execute(String exec) throws CommunicationException {
-		checkConnection();
-		ssh.sendCommand(exec);
-		return true;
-	}
-	
-	public String executeStdOut(String exec) throws CommunicationException {
+	public String execute(String exec) throws CommunicationException {
 		checkConnection();
 		return ssh.sendCommandRet(exec);
 	}
