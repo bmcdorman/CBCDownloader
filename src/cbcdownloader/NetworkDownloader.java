@@ -8,22 +8,31 @@ public class NetworkDownloader implements IDownloader {
 	private Ssh ssh = null;
 	
 	public void connect() throws CommunicationException {
+		if(ssh == null) disconnect();
 		try {
 			ssh = new Ssh(ip);
+			System.out.println("Connected via ssh to " + ip);
 		} catch (IOException e) {
 			throw new CommunicationException();
 		}
 	}
 	
+	private void checkConnection() throws CommunicationException {
+		if(ssh == null) throw new CommunicationException("Not connected to " + ip);
+	}
+	
 	@Override
 	public boolean delete(String destination) throws CommunicationException {
+		checkConnection();
 		ssh.sendCommand("rm -Rf \"" + destination + "\"");
 		return true;
 	}
 
-	@Override
+	@Override 
 	public boolean download(String destination, File file)
 			throws CommunicationException {
+		System.out.println("Download");
+		checkConnection();
 		try {
 			ssh.sendFile(destination, file);
 		} catch (IOException e) {
@@ -35,11 +44,13 @@ public class NetworkDownloader implements IDownloader {
 
 	@Override
 	public boolean execute(String exec) throws CommunicationException {
+		checkConnection();
 		ssh.sendCommand(exec);
 		return true;
 	}
 	
-	public String executeStdIn(String exec) throws CommunicationException {
+	public String executeStdOut(String exec) throws CommunicationException {
+		checkConnection();
 		return ssh.sendCommandRet(exec);
 	}
 
@@ -60,8 +71,10 @@ public class NetworkDownloader implements IDownloader {
 	}
 
 	@Override
-	public void disconnect() throws CommunicationException {
+	public void disconnect() {
+		if(ssh == null) return;
 		ssh.close();
+		ssh = null;
 	}
 	
 	@Override

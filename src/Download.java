@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import cbcdownloader.CommunicationException;
 import cbcdownloader.DownloadConfiguration;
 import cbcdownloader.IDownloader;
 import cbcdownloader.NetworkDownloader;
@@ -17,7 +18,7 @@ public class Download {
 		downloaders.put("net", new NetworkDownloader());
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CommunicationException {
 		if(args.length == 0) {
 			System.out.println("No arguments specified. Entering interactive mode.");
 			System.out.println();
