@@ -34,7 +34,8 @@ public abstract class DownloadConfiguration {
 	}
 	
 	public String getValueFor(String name) {
-		return requirementsList.get(name)[2];
+		String actualValue = requirementsList.get(name)[2];
+		return actualValue == null ? getDefaultFor(name) : actualValue;
 	}
 	
 	public void setValueFor(String name, String value) {

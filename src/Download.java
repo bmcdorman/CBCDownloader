@@ -11,17 +11,20 @@ import java.util.Map;
 
 import cbcdownloader.CommunicationException;
 import cbcdownloader.DownloadConfiguration;
-import cbcdownloader.IDownloader;
+import cbcdownloader.Downloader;
 import cbcdownloader.NetworkDownloader;
+import cbcdownloader.DummyDownloader;
 
 public class Download {
-	private static Map<String, IDownloader> downloaders = new HashMap<String, IDownloader>();
+	private static Map<String, Downloader> downloaders = new HashMap<String, Downloader>();
 	
 	static {
 		downloaders.put("net", new NetworkDownloader());
+		downloaders.put("virtual", new DummyDownloader());
 	}
 	
 	public static void main(String[] args) throws CommunicationException {
+		System.out.println();
 		if(args.length == 0) {
 			System.out.println("No arguments specified. Entering interactive mode.");
 			System.out.println();
@@ -30,7 +33,7 @@ public class Download {
 			printUsageInfo(downloaders);
 			System.exit(0);
 		} else {
-			IDownloader downloader = downloaders.get(args[2]);
+			Downloader downloader = downloaders.get(args[2]);
 			
 			if(downloader == null) {
 				System.out.println(
@@ -65,7 +68,7 @@ public class Download {
 		}
 	}
 	
-	private static void printUsageInfo(Map<String, IDownloader> downloaders) {
+	private static void printUsageInfo(Map<String, Downloader> downloaders) {
 		System.out.println("Usage: java Download <file> <destination> <downloader> <args>");
 		for(String i : downloaders.keySet()) {
 			DownloadConfiguration config = downloaders.get(i).getConfigurationObject();
@@ -82,6 +85,7 @@ public class Download {
 				);
 			}
 		}
+		System.out.println();
 	}
 
 }

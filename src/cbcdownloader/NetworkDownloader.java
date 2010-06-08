@@ -3,7 +3,14 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class NetworkDownloader implements IDownloader {
+public class NetworkDownloader extends Downloader {
+	
+	protected class NetworkConfiguration extends DownloadConfiguration {
+		public NetworkConfiguration() {
+			addRequirement("ip", "The IPv4 address of the device");
+		}
+	}
+	
 	private String ip = null;
 	private Ssh ssh = null;
 	
