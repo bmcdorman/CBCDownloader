@@ -49,7 +49,6 @@ public class DummyDownloader extends Downloader {
 	public boolean download(String destination, File file)
 			throws CommunicationException {
 		File dest = new File(downloadRoot.getPath() + File.separator + destination);
-		System.out.println("Downloading to: " + dest.getPath());
 		if(file.isFile()) {
 			File parent = dest.getParentFile();
 			if(parent != null) { parent.mkdirs(); }

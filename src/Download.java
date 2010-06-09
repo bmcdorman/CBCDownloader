@@ -4,6 +4,8 @@
 //  cd ../bin
 //  java -cp .:../jsch-0.1.42.jar:../RXTXcomm.jar Download
 
+//made for 4-space tabs
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,7 +20,8 @@ import cbcdownloader.DummyDownloader;
 import cbcdownloader.USBDownloader;
 
 public class Download {
-	private static Map<String, Downloader> downloaders = new HashMap<String, Downloader>();
+	private static Map<String, Downloader> downloaders =
+	                                          new HashMap<String, Downloader>();
 	
 	static {
 		downloaders.put("net", new NetworkDownloader());
@@ -27,10 +30,15 @@ public class Download {
 	}
 	
 	private static void printUsageInfo(Map<String, Downloader> downloaders) {
-		System.out.println("Usage: java Download <file> <destination> <downloader> <args>");
-		System.out.println("To run in an interactive mode: java Download interactive");
+		System.out.println(
+			"Usage: java Download <file> <destination> <downloader> <args>"
+		);
+		System.out.println(
+			"To run in an interactive mode: java Download interactive"
+		);
 		for(String i : downloaders.keySet()) {
-			DownloadConfiguration config = downloaders.get(i).getConfigurationObject();
+			DownloadConfiguration config =
+				downloaders.get(i).getConfigurationObject();
 			System.out.println();
 			System.out.println("Download Plugin: " + i);
 			for(String k : config.getRequirements()) {
@@ -140,6 +148,41 @@ public class Download {
 		Downloader dl = downloaders.get(
 			downloaderTypes[consoleMenu("Select a Downloader", downloaderTypes)]
 		);
-		//more to do...
+		Scanner sc = new Scanner(System.in);
+		System.out.println();
+		System.out.println("File or directory to download?");
+		String fileToDownload = sc.nextLine();
+		System.out.println();
+		System.out.println("Where should this file/directory go on the CBC?");
+		String destination = sc.nextLine();
+		DownloadConfiguration dlc = dl.getConfigurationObject();
+		for(String i : dlc.getRequirements()) {
+			System.out.println();
+			System.out.println(i + ": " + dlc.getDescriptionFor(i));
+			if(dlc.hasDefaultFor(i)) {
+				System.out.println(
+					"Press enter with no input to accept the default of \"" +
+					dlc.getDefaultFor(i) + "\""
+				);
+				String userVal = sc.nextLine();
+				if(userVal.length() == 0) { userVal = dlc.getDefaultFor(i); }
+				dlc.setValueFor(i, userVal);
+			} else {
+				dlc.setValueFor(i, sc.nextLine());
+			}
+		}
+		System.out.println("Initializing Plugin...");
+		dl.setup(dlc);
+		System.out.println("Connecting to CBC...");
+		try {
+			dl.connect();
+			System.out.println("Downloading...");
+			dl.download(destination, new File(fileToDownload));
+		} catch(CommunicationException ex) {
+			System.out.println(ex.getMessage());
+		}
+		System.out.println("Disconnecting from CBC...");
+		dl.disconnect();
+		System.out.println("Done.");
 	}
 }
