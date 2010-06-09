@@ -15,12 +15,14 @@ import cbcdownloader.DownloadConfiguration;
 import cbcdownloader.Downloader;
 import cbcdownloader.NetworkDownloader;
 import cbcdownloader.DummyDownloader;
+import cbcdownloader.USBDownloader;
 
 public class Download {
 	private static Map<String, Downloader> downloaders = new HashMap<String, Downloader>();
 	
 	static {
 		downloaders.put("net", new NetworkDownloader());
+		downloaders.put("usb", new USBDownloader());
 		downloaders.put("virtual", new DummyDownloader());
 	}
 	
@@ -55,7 +57,7 @@ public class Download {
 			printUsageInfo(downloaders);
 			System.exit(0);
 		} else {
-			
+			argumentDownload(args);
 		}
 	}
 	

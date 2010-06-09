@@ -10,10 +10,15 @@ communication. Fortunately, installation is somewhat painless.
 On Ubuntu (and probably Debian), it is a simple apt command:
     $ sudo apt-get install librxtx-java
 
-On Mac OS X and M$ Windoz, it should be as simple as CDing into this directory
+On M$ Windoz, it should be as simple as CDing into this directory
 and running:
 	$ javaws gnu.io.SafeCommDriver.jnlp
-...although that is untested...
+
+On Mac OS X, download the following file:
+	http://rxtx.qbang.org/ToyBox/2.1-7-build1/Mac_OS_X/i686-apple-darwin8/librxtxSerial.jnilib
+And place it in your "/System/Library/Java/Extensions" directory.
+On Newer Macs:
+Open the Java Preferences App Located in Applications -> Utilities and set the 32 bit Java Runtime at a higher priority than the 64 bit one.
 
 If that fails, download the latest stable version from here:
     http://rxtx.qbang.org/wiki/index.php/Download
