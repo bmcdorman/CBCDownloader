@@ -1,0 +1,51 @@
+<project name="CBCDownloader" default="dist" basedir=".">
+	<description>
+		A set of cross-platform Java utilities and libraries for communicating
+		with the CBC
+	</description>
+	
+	<!-- set global properties for this build -->
+	<property name="lib" location="lib"/>
+	<property name="src" location="src"/>
+	<property name="bin" location="bin"/>
+	<property name="docs" location="docs/api"/>
+	
+	<target name="init">
+		<tstamp/>
+		<mkdir dir="${bin}"/>
+		<!--mkdir dir="${docs}"/-->
+	</target>
+	
+	<target name="compile" depends="init"
+				description="compile the source">
+		<javac srcdir="${lib}" destdir="${bin}"/>
+		<javac srcdir="${src}" destdir="${bin}"/>
+	</target>
+	
+	<!--  We need library documentation soon
+	<target name="document">
+		<javadoc packagenames="cbccore.*"
+		         sourcepath="src"
+		         excludepackagenames="cbccore.low.simulator.*"
+		         destdir="${docs}"
+		         author="true"
+		         version="true"
+		         use="true"
+		         windowtitle="CBCJVM API - JavaDoc">
+			<doctitle><![CDATA[<h1>CBCJVM API</h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2010 Benjamin Woodruff, Braden Mcdorman, and anyone else who is cited at an author. GPLv3 Licensed.<p>Fork us on <a href = "http://github.com/catron/CBCJVM">github</a>!</i>]]></bottom>
+			<tag name=".todo" scope="all" description="To Do:"/>
+		</javadoc>
+	</target>
+	-->
+	
+	<target name="dist" depends="compile"
+				description="generate the distribution" >
+	</target>
+	
+	<target name="clean"
+				description="clean up" >
+		<delete dir="${bin}"/>
+		<delete dir="${docs}"/>
+	</target>
+</project>
